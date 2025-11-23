@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sisco Calculators</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="welcomeOverlay" class="welcome-overlay">
+    <div class="welcome-card">
+      <h1>Sisco Calculators</h1>
+      <p>Simple calculator suite: Calculator, Temperature, Distance, Currency, Weight converters.</p>
+      <div class="welcome-actions">
+        <button id="startBtn" class="btn operator">Start</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="app" hidden>
+    <header class="brand">
+      <!-- Inline SVG logo: simple stylized S -->
+      <svg class="brand-logo" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#ffb86b" />
+            <stop offset="1" stop-color="#ff6b3a" />
+          </linearGradient>
+        </defs>
+        <circle cx="60" cy="60" r="56" fill="url(#g)" />
+        <path d="M36 40c8-6 28-14 44 0 0 0-26-2-36 6-8 6-12 20 0 30 12 10 34 8 52-6" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="brand-text">Sisco Calculators</div>
+    </header>
+    <div class="mode-toggle" role="tablist" aria-label="Mode selector">
+      <button class="mode-btn active" data-mode="calc" role="tab" aria-selected="true">Calculator</button>
+      <button class="mode-btn" data-mode="temp" role="tab" aria-selected="false">Temp Converter</button>
+      <button class="mode-btn" data-mode="dist" role="tab" aria-selected="false">Distance Converter</button>
+      <button class="mode-btn" data-mode="curr" role="tab" aria-selected="false">Currency Converter</button>
+      <button class="mode-btn" data-mode="weight" role="tab" aria-selected="false">Weight Converter</button>
+      <button class="mode-btn" data-mode="vol" role="tab" aria-selected="false">Volume (mL) Converter</button>
+    </div>
+
+    <div class="calculator" id="calcView">
+      <div class="display" id="display" aria-live="polite">0</div>
+      <div class="buttons" role="group" aria-label="Calculator buttons">
+        <button class="btn function" data-action="clear">C</button>
+        <button class="btn function" data-action="neg">+/-</button>
+        <button class="btn function" data-action="percent">%</button>
+        <button class="btn operator" data-action="/">÷</button>
+
+        <button class="btn" data-value="7">7</button>
+        <button class="btn" data-value="8">8</button>
+        <button class="btn" data-value="9">9</button>
+        <button class="btn operator" data-action="*">×</button>
+
+        <button class="btn" data-value="4">4</button>
+        <button class="btn" data-value="5">5</button>
+        <button class="btn" data-value="6">6</button>
+        <button class="btn operator" data-action="-">−</button>
+
+        <button class="btn" data-value="1">1</button>
+        <button class="btn" data-value="2">2</button>
+        <button class="btn" data-value="3">3</button>
+        <button class="btn operator" data-action="+">+</button>
+
+        <button class="btn wide" data-value="0">0</button>
+        <button class="btn" data-value=".">.</button>
+        <button class="btn operator" data-action="=">=</button>
+      </div>
+    </div>
+
+    <div class="converter" id="tempView" hidden>
+      <div class="converter-inner">
+        <label class="conv-row">
+          <span>Value</span>
+          <input type="number" id="tempInput" placeholder="Enter value" />
+        </label>
+
+        <label class="conv-row">
+          <span>From</span>
+          <select id="fromUnit">
+            <option value="C">Celsius (°C)</option>
+            <option value="F">Fahrenheit (°F)</option>
+            <option value="K">Kelvin (K)</option>
+          </select>
+        </label>
+
+        <label class="conv-row">
+          <span>To</span>
+          <select id="toUnit">
+            <option value="C">Celsius (°C)</option>
+            <option value="F">Fahrenheit (°F)</option>
+            <option value="K">Kelvin (K)</option>
+          </select>
+        </label>
+
+        <div class="conv-actions">
+          <button id="convertBtn" class="btn operator">Convert</button>
+          <button id="convClear" class="btn function">Clear</button>
+        </div>
+
+        <div class="conv-result" id="convResult">Result: —</div>
+      </div>
+    </div>
+    
+      <div class="converter" id="distView" hidden>
+        <div class="converter-inner">
+          <label class="conv-row">
+            <span>Value</span>
+            <input type="number" id="distInput" placeholder="Enter value" />
+          </label>
+
+          <label class="conv-row">
+            <span>From</span>
+            <select id="distFrom">
+              <option value="m">Meter (m)</option>
+              <option value="km">Kilometer (km)</option>
+              <option value="mi">Mile (mi)</option>
+              <option value="yd">Yard (yd)</option>
+              <option value="ft">Foot (ft)</option>
+              <option value="in">Inch (in)</option>
+            </select>
+          </label>
+
+          <label class="conv-row">
+            <span>To</span>
+            <select id="distTo">
+              <option value="m">Meter (m)</option>
+              <option value="km">Kilometer (km)</option>
+              <option value="mi">Mile (mi)</option>
+              <option value="yd">Yard (yd)</option>
+              <option value="ft">Foot (ft)</option>
+              <option value="in">Inch (in)</option>
+            </select>
+          </label>
+
+          <div class="conv-actions">
+            <button id="convertDist" class="btn operator">Convert</button>
+            <button id="distClear" class="btn function">Clear</button>
+          </div>
+
+          <div class="conv-result" id="distResult">Result: —</div>
+        </div>
+      </div>
+
+      
+    
+      <div class="converter" id="currView" hidden>
+        <div class="converter-inner">
+          <label class="conv-row">
+            <span>Value</span>
+            <input type="number" id="currInput" placeholder="Enter value" />
+          </label>
+
+          <label class="conv-row">
+            <span>From</span>
+            <select id="currFrom">
+              <option value="USD">USD — US Dollar</option>
+              <option value="EUR">EUR — Euro</option>
+              <option value="GBP">GBP — British Pound</option>
+              <option value="JPY">JPY — Japanese Yen</option>
+              <option value="INR">INR — Indian Rupee</option>
+              <option value="AUD">AUD — Australian Dollar</option>
+              <option value="CAD">CAD — Canadian Dollar</option>
+              <option value="CNY">CNY — Chinese Yuan</option>
+                <option value="OMR">OMR — Omani Rial</option>
+                <option value="SAR">SAR — Saudi Riyal</option>
+            </select>
+          </label>
+
+          <label class="conv-row">
+            <span>To</span>
+            <select id="currTo">
+              <option value="USD">USD — US Dollar</option>
+              <option value="EUR">EUR — Euro</option>
+              <option value="GBP">GBP — British Pound</option>
+              <option value="JPY">JPY — Japanese Yen</option>
+              <option value="INR">INR — Indian Rupee</option>
+              <option value="AUD">AUD — Australian Dollar</option>
+              <option value="CAD">CAD — Canadian Dollar</option>
+              <option value="CNY">CNY — Chinese Yuan</option>
+              <option value="OMR">OMR — Omani Rial</option>
+              <option value="SAR">SAR — Saudi Riyal</option>
+            </select>
+          </label>
+
+          <div class="conv-actions">
+            <button id="convertCurr" class="btn operator">Convert</button>
+            <button id="swapCurr" class="btn function" title="Swap From/To">⇄</button>
+            <button id="currClear" class="btn function">Clear</button>
+          </div>
+
+          <div class="conv-result" id="currResult">Result: —</div>
+        </div>
+      </div>
+    
+          <div class="converter" id="weightView" hidden>
+            <div class="converter-inner">
+              <label class="conv-row">
+                <span>Value</span>
+                <input type="number" id="weightInput" placeholder="Enter value" />
+              </label>
+
+              <label class="conv-row">
+                <span>From</span>
+                <select id="weightFrom">
+                  <option value="g">Gram (g)</option>
+                  <option value="kg">Kilogram (kg)</option>
+                  <option value="lb">Pound (lb)</option>
+                  <option value="oz">Ounce (oz)</option>
+                  <option value="t">Tonne (t)</option>
+                </select>
+              </label>
+
+              <label class="conv-row">
+                <span>To</span>
+                <select id="weightTo">
+                  <option value="g">Gram (g)</option>
+                  <option value="kg">Kilogram (kg)</option>
+                  <option value="lb">Pound (lb)</option>
+                  <option value="oz">Ounce (oz)</option>
+                  <option value="t">Tonne (t)</option>
+                </select>
+              </label>
+
+              <div class="conv-actions">
+                <button id="convertWeight" class="btn operator">Convert</button>
+                <button id="weightClear" class="btn function">Clear</button>
+              </div>
+
+              <div class="conv-result" id="weightResult">Result: —</div>
+            </div>
+          </div>
+    
+            <div class="converter" id="volView" hidden>
+              <div class="converter-inner">
+                <label class="conv-row">
+                  <span>Value</span>
+                  <input type="number" id="volInput" placeholder="Enter value" />
+                </label>
+
+                <label class="conv-row">
+                  <span>From</span>
+                  <select id="volFrom">
+                    <option value="ml">Milliliter (mL)</option>
+                    <option value="l">Liter (L)</option>
+                    <option value="floz">Fluid Ounce (fl oz)</option>
+                    <option value="cup">Cup (US)</option>
+                    <option value="pt">Pint (US)</option>
+                    <option value="qt">Quart (US)</option>
+                    <option value="gal">Gallon (US)</option>
+                  </select>
+                </label>
+
+                <label class="conv-row">
+                  <span>To</span>
+                  <select id="volTo">
+                    <option value="ml">Milliliter (mL)</option>
+                    <option value="l">Liter (L)</option>
+                    <option value="floz">Fluid Ounce (fl oz)</option>
+                    <option value="cup">Cup (US)</option>
+                    <option value="pt">Pint (US)</option>
+                    <option value="qt">Quart (US)</option>
+                    <option value="gal">Gallon (US)</option>
+                  </select>
+                </label>
+                <div class="conv-actions">
+                  <button id="convertVol" class="btn operator">Convert</button>
+                  <button id="volClear" class="btn function">Clear</button>
+                </div>
+
+                <div class="conv-result" id="volResult">Result: —</div>
+              </div>
+            </div>
+  </div>
+
+  <script src="./calc.js"></script>
+</body>
+</html>
