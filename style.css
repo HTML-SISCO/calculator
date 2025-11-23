@@ -87,7 +87,7 @@ body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:c
   font-size:20px;
   cursor:pointer;
   transition:transform .06s ease, box-shadow .06s;
-  box-shadow: 0 2px 0 rgba(0,0,0,0.4) inset;
+  box-shadow: 0 2px 0 rgb(250, 137, 0) inset;
 }
 
 .btn:active{ transform: translateY(1px); }
